@@ -1,19 +1,23 @@
 package entity;
 
+import entity.enums.TypeAccount;
+
 public class Account {
 	
 	private int id;
 	private String name;
 	private String password;
 	private double balance;
+	private TypeAccount typeAccount;
 	
 	
 	public Account() {};
 	
-	public Account(int id, String name, String password) {
+	public Account(int id, String name, String password, TypeAccount typeAccount) {
 		this.id = id;
 		this.name = name;
 		this.password = password;
+		this.typeAccount = typeAccount;
 	
 	}
 
@@ -49,6 +53,14 @@ public class Account {
 		this.password = password;
 	}
 	
+	public TypeAccount getTypeAccount() {
+		return typeAccount;
+	}
+
+	public void setTypeAccount(TypeAccount typeAccount) {
+		this.typeAccount = typeAccount;
+	}
+
 	public boolean autenticar(String senha) {
 		return this.password.equals(senha);
 	}
@@ -58,14 +70,19 @@ public class Account {
 	}
 	
 	public void withdraw(double withdraw) {
-		this.balance -= withdraw;
+		if(typeAccount.equals(TypeAccount.CONTA_POUPANCA)) {
+			this.balance -= withdraw - 5.0;
+		}
+		this.balance -= withdraw;	
 	}
 
 	@Override
 	public String toString() {
-		return "Account [id=" + id + ", name=" + name + ", password=" + password + ", balance=" + balance + "]";
+		return "Account [id=" + id + ", name=" + name + ", password=" + password + ", balance=" + balance
+				+ ", typeAccount=" + typeAccount + "]";
 	}
-	
+
+
 	
 	
 	

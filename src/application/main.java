@@ -6,6 +6,7 @@ import java.util.Scanner;
 import entity.Account;
 import entity.AccountsDB;
 import entity.IdCount;
+import entity.enums.TypeAccount;
 
 public class main {
 
@@ -60,7 +61,8 @@ public class main {
 						System.out.println("1 - Ver Saldo");
 						System.out.println("2 - Depositar");
 						System.out.println("3 - Saque");
-						System.out.println("4 - Sair");
+						System.out.println("4 - Ver Informações da Conta");
+						System.out.println("0 - Sair");
 						System.out.print("Digite e pressione Enter: ");
 						int buttonAccount = sc.nextInt();
 						System.out.println();
@@ -79,7 +81,6 @@ public class main {
 									break;
 								}
 								account.deposit(value);
-								System.out.printf("R$ %.2f depositados!%n", value);
 								break;
 							}
 							case 3:{
@@ -94,10 +95,13 @@ public class main {
 									break;
 								}
 								account.withdraw(value);
-								System.out.printf("R$ %.2f sacados!%n", value);
 								break;
 							}
 							case 4:{
+								System.out.println(account);
+								break;
+							}
+							case 0:{
 								System.out.println("Saindo...");
 								logoff = true;
 								break;
@@ -112,6 +116,34 @@ public class main {
 					System.out.println("          Criar Conta ");
 					System.out.println("-------------------------------------");
 					sc.nextLine();
+					
+					TypeAccount typeAccount = null;
+					
+					System.out.println("Qual tipo de conta quer abrir? ");
+					System.out.println("1 - Conta Poupança");
+					System.out.println("2 - Conta Corrente");
+					System.out.print("Digite e pressione Enter: ");
+					int accountType = sc.nextInt();
+					sc.nextLine();
+					switch(accountType) {
+						case 1:{
+							typeAccount =  TypeAccount.CONTA_POUPANCA;
+							break;
+						}
+						case 2:{
+							typeAccount = TypeAccount.CONTA_CORRENTE;
+							break;
+						}
+						default:{
+							System.out.println("Valor Invalido!");
+							break;
+						}
+					}
+					if(typeAccount == null) {
+						break;
+					}
+					
+					
 					System.out.print("Digite o nome: ");
 					String nome = sc.nextLine();
 										
@@ -119,8 +151,9 @@ public class main {
 					String senha = sc.nextLine();
 					
 					int id = idCount.createId();
-					
-					account = new Account(id,nome,senha);
+
+
+					account = new Account(id,nome,senha,typeAccount);
 					accountsDB.addAccount(account);
 					
 					System.out.println("Conta Criada!");
