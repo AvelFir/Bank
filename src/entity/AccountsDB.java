@@ -26,6 +26,7 @@ public class AccountsDB {
 				return account;
 			}else {
 				System.out.println("Senha Invalida");
+				account = null;
 			}
 		}else {
 			System.out.println("Id não encontrado");

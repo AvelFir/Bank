@@ -52,6 +52,14 @@ public class Account {
 	public boolean autenticar(String senha) {
 		return this.password.equals(senha);
 	}
+	
+	public void deposit(double deposit) {
+		this.balance += deposit;
+	}
+	
+	public void withdraw(double withdraw) {
+		this.balance -= withdraw;
+	}
 
 	@Override
 	public String toString() {
